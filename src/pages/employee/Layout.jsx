@@ -20,9 +20,8 @@ import { useState } from 'react';
 import Client from './client/Client';
 import Payment from './payment/Payment';
 import Request from './request/Request';
-import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -89,7 +88,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         }),
     }),
 );
-export default function Admin() {
+export default function Employee() {
     const [open, setOpen] = useState(false);
     const [isClient, setisClient] = useState(false)
     const [isPayment, setisPayment] = useState(false)
@@ -138,7 +137,7 @@ export default function Admin() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Admin
+                        Employee
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -160,50 +159,30 @@ export default function Admin() {
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
                                 <SupervisedUserCircleIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={toggleClient}>Opt 1</Typography>
+                                <Typography sx={{ fontSize: '16px' }} onClick={toggleClient}>Client</Typography>
                             </Box>
 
                         ) : (
                             <SupervisedUserCircleIcon onClick={toggleClient} />
                         )}
                     </ListItem>
-                    <ListItem>
-                        {open ? (
-                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                                <SupervisedUserCircleIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={toggleClient}>Opt 2</Typography>
-                            </Box>
-
-                        ) : (
-                            <SupervisedUserCircleIcon onClick={toggleClient} />
-                        )}
-                    </ListItem>
-                    <ListItem>
-                        {open ? (
-                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                                <SupervisedUserCircleIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={toggleClient}>Opt 3</Typography>
-                            </Box>
-
-                        ) : (
-                            <SupervisedUserCircleIcon onClick={toggleClient} />
-                        )}
-                    </ListItem>
+                    <Divider />
                     <ListItem>
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
                                 <PaymentIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={togglePayment}>Opt 4</Typography>
+                                <Typography sx={{ fontSize: '16px' }} onClick={togglePayment}>Payment</Typography>
                             </Box>
                         ) : (
                             <PaymentIcon onClick={togglePayment} />
                         )}
                     </ListItem>
+                    <Divider />
                     <ListItem>
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
                                 <QuestionAnswerIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={toggleRequest}>Opt 5</Typography>
+                                <Typography sx={{ fontSize: '16px' }} onClick={toggleRequest}> Requests</Typography>
                             </Box>
                         ) : (
                             <QuestionAnswerIcon onClick={toggleRequest} />
@@ -213,15 +192,15 @@ export default function Admin() {
                     <ListItem>
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                                <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>
+                                <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
                                     <LogoutIcon />
                                 </Link>
-                                <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>
+                                <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
                                     <Typography sx={{ fontSize: '16px' }} onClick={toggleRequest}> Logout</Typography>
                                 </Link>
                             </Box>
                         ) : (
-                            <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>
+                            <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
                                 <LogoutIcon />
                             </Link>
                         )}

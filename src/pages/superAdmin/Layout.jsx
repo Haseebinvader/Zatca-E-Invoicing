@@ -20,6 +20,9 @@ import { useState } from 'react';
 import Client from './client/Client';
 import Payment from './payment/Payment';
 import Request from './request/Request';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Link } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
@@ -104,10 +107,11 @@ export default function SuperAdmin() {
     }
 
     const toggleRequest = () => {
-        setisRequest(!isRequest)
+        setisRequest(false)
         setisClient(false);
         setisPayment(false);
     }
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -186,6 +190,24 @@ export default function SuperAdmin() {
                             <QuestionAnswerIcon onClick={toggleRequest} />
                         )}
                     </ListItem>
+                    <Divider />
+                    <ListItem>
+                        {open ? (
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
+                                <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
+                                    <LogoutIcon />
+                                </Link>
+                                <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
+                                    <Typography sx={{ fontSize: '16px' }} onClick={toggleRequest}> Logout</Typography>
+                                </Link>
+                            </Box>
+                        ) : (
+                            <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
+                                <LogoutIcon />
+                            </Link>
+                        )}
+                    </ListItem>
+
                 </List>
 
                 <Divider />
