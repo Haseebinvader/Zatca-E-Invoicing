@@ -16,14 +16,16 @@ import { imgData } from '../../assets';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PaymentIcon from '@mui/icons-material/Payment';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import Client from './client/Client';
 import Payment from './payment/Payment';
 import Request from './request/Request';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-
-
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+import Avatar from '@mui/material/Avatar';
+import { Menu, MenuItem, Tooltip } from '@mui/material';
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -94,6 +96,16 @@ export default function Admin() {
     const [isClient, setisClient] = useState(false)
     const [isPayment, setisPayment] = useState(false)
     const [isRequest, setisRequest] = useState(false)
+    const [anchorElUser, setAnchorElUser] = useState(null);
+
+
+    const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     const toggleClient = () => {
         setisClient(true);
@@ -119,6 +131,7 @@ export default function Admin() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    const settings = ['Notification 1', 'Notification 2', 'Notification 3', 'This is a longer notification text'];
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -137,9 +150,85 @@ export default function Admin() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Admin
-                    </Typography>
+                    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            <Typography variant="h6" noWrap component="div">
+                                Admin
+                            </Typography>
+                        </Box>
+                        <Box sx={{ flexGrow: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem' }}>
+                            <Box>
+                                <Typography
+                                    sx={{
+                                        color: 'green',
+                                        textShadow: '0 0 5px rgba(0, 255, 0, 0.7)',
+                                        animation: 'glow 1s infinite',
+                                        '@keyframes glow': {
+                                            '0%': { textShadow: '0 0 5px rgba(0, 255, 0, 0.7)' },
+                                            '50%': { textShadow: '0 0 20px rgba(0, 255, 0, 0.7)' },
+                                            '100%': { textShadow: '0 0 5px rgba(0, 255, 0, 0.7)' },
+                                        },
+                                    }}
+                                >
+                                    Active
+                                </Typography>
+                                <Typography
+                                    sx={{
+                                        color: 'red',
+                                        textShadow: '0 0 5px rgba(255, 0, 0, 0.7)',
+                                        animation: 'glow 1s infinite',
+                                        '@keyframes glow': {
+                                            '0%': { textShadow: '0 0 5px rgba(255, 0, 0, 0.7)' },
+                                            '50%': { textShadow: '0 0 20px rgba(255, 0, 0, 0.7)' },
+                                            '100%': { textShadow: '0 0 5px rgba(255, 0, 0, 0.7)' },
+                                        },
+                                    }}
+                                >
+                                    Not Active
+                                </Typography>
+                            </Box>
+                            <Box>
+                                <Tooltip title="Open notifications">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: '#fff' }}>
+                                        <Badge badgeContent={4} color="primary">
+                                            <MailIcon />
+                                        </Badge>
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    {settings.map((setting, index) => (
+                                        <Fragment key={setting}>
+                                            <MenuItem onClick={handleCloseUserMenu} sx={{ gap: '1rem', py: 0.01 }}>
+                                                <Avatar>{setting.charAt(0)}</Avatar>
+                                                <Typography
+                                                    textAlign="center"
+                                                    sx={{ maxWidth: '120px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                                                >
+                                                    {setting.length > 20 ? `${setting.slice(0, 20)}...` : setting}
+                                                </Typography>
+                                            </MenuItem>
+                                            {index < settings.length - 1 && <Divider />}
+                                        </Fragment>
+                                    ))}
+                                </Menu>
+                            </Box>
+                        </Box>
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Drawer variant="permanent" open={open}>
@@ -150,7 +239,6 @@ export default function Admin() {
                         </Box>
                     </Box>
                     <IconButton onClick={handleDrawerClose}>
-
                         <ChevronLeftIcon />
                     </IconButton>
                 </DrawerHeader>

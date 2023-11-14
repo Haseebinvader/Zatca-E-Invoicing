@@ -81,7 +81,7 @@ const Login = () => {
                             <TextField label="Username" value={UserName} variant="filled" size="small" sx={{ mt: "2rem", "& input": { color: "white" } }} InputLabelProps={{ sx: { color: "white" } }} onChange={(e) => {
                                 setUserName(e.target.value)
                             }} />
-                            <TextField label="Password" value={UserPassword} variant="filled" size="small" sx={{ mt: "2rem", "& input": { color: "white" }, }} InputLabelProps={{ sx: { color: "white" } }} onChange={(e) => {
+                            <TextField label="Password" type="password" value={UserPassword} variant="filled" size="small" sx={{ mt: "2rem", "& input": { color: "white" }, }} InputLabelProps={{ sx: { color: "white" } }} onChange={(e) => {
                                 setUserPassword(e.target.value)
                             }} />
                         </Box>
@@ -95,7 +95,7 @@ const Login = () => {
                                     value={UserType}
                                     onChange={(e) => setUserType(e.target.value)}
                                 >
-                                    <FormControlLabel value="Super Admin" control={<Radio />} label="SuperAdmin" />
+                                    <FormControlLabel value="Super Admin" control={<Radio />} label="Super Admin" />
                                     <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
                                 </RadioGroup>
                             </FormControl>

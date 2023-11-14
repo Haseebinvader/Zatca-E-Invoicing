@@ -18,11 +18,13 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import { useState } from 'react';
 import Client from './client/Client';
-import Payment from './payment/Payment';
-import Request from './request/Request';
+import UserAllocation from './userAllocation/userAllocation';
+import ActivityLogs from './activityLogs/activityLogs';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
-
+import BasicTable from './client/viewDetails';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import UpdateClient from './client/updateClient';
 
 const drawerWidth = 240;
 
@@ -94,24 +96,46 @@ export default function SuperAdmin() {
     const [isClient, setisClient] = useState(false)
     const [isPayment, setisPayment] = useState(false)
     const [isRequest, setisRequest] = useState(false)
+    const [isDetail, setisDetail] = useState(false)
+    const [isUpdate, setisUpdate] = useState(false)
+
+    const toggleUpdate = () => {
+        setisUpdate(true)
+        setisDetail(false);
+        setisClient(false);
+        setisPayment(false);
+        setisRequest(false);
+    }
+
+    const toggleDetail = () => {
+        setisDetail(true);
+        setisClient(false);
+        setisPayment(false);
+        setisRequest(false);
+    }
 
     const toggleClient = () => {
         setisClient(true);
         setisPayment(false);
         setisRequest(false);
+        setisDetail(false);
+
     }
     const togglePayment = () => {
         setisPayment(true)
         setisClient(false);
         setisRequest(false);
+        setisDetail(false);
+
     }
 
     const toggleRequest = () => {
-        setisRequest(false)
+        setisRequest(true)
         setisClient(false);
         setisPayment(false);
-    }
+        setisDetail(false);
 
+    }
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -132,8 +156,7 @@ export default function SuperAdmin() {
                         onClick={handleDrawerOpen}
                         edge="start"
                         sx={{
-                            marginRight: 5,
-                            ...(open && { display: 'none' }),
+                            marginRight: 5, ...(open && { display: 'none' }),
                         }}
                     >
                         <MenuIcon />
@@ -160,68 +183,76 @@ export default function SuperAdmin() {
                     <ListItem>
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                                <SupervisedUserCircleIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={toggleClient}>Client</Typography>
+                                <SupervisedUserCircleIcon sx={{ cursor: 'pointer' }} />
+                                <Typography sx={{ fontSize: '16px', cursor: 'pointer' }} onClick={toggleClient}>Clients Registration</Typography>
                             </Box>
 
                         ) : (
-                            <SupervisedUserCircleIcon onClick={toggleClient} />
+                            <SupervisedUserCircleIcon onClick={toggleClient} sx={{ cursor: 'pointer' }} />
                         )}
                     </ListItem>
                     <Divider />
                     <ListItem>
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                                <PaymentIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={togglePayment}>Payment</Typography>
+                                <ManageAccountsIcon sx={{ cursor: 'pointer' }} />
+                                <Typography sx={{ fontSize: '16px', cursor: 'pointer' }} onClick={toggleDetail}>Clients Details</Typography>
+                            </Box>
+
+                        ) : (
+                            <ManageAccountsIcon onClick={toggleDetail} sx={{ cursor: 'pointer' }} />
+                        )}
+                    </ListItem>
+                    <Divider />
+                    <ListItem>
+                        {open ? (
+                            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', }}>
+                                <PaymentIcon sx={{ cursor: 'pointer' }} />
+                                <Typography sx={{ fontSize: '16px', cursor: 'pointer' }} onClick={togglePayment}>User Allocation</Typography>
                             </Box>
                         ) : (
-                            <PaymentIcon onClick={togglePayment} />
+                            <PaymentIcon onClick={togglePayment} sx={{ cursor: 'pointer' }} />
                         )}
                     </ListItem>
                     <Divider />
                     <ListItem>
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                                <QuestionAnswerIcon />
-                                <Typography sx={{ fontSize: '16px' }} onClick={toggleRequest}> Requests</Typography>
+                                <QuestionAnswerIcon sx={{ cursor: 'pointer' }} />
+                                <Typography sx={{ fontSize: '16px', cursor: 'pointer' }} onClick={toggleRequest}>Activity Logs</Typography>
                             </Box>
                         ) : (
-                            <QuestionAnswerIcon onClick={toggleRequest} />
+                            <QuestionAnswerIcon onClick={toggleRequest} sx={{ cursor: 'pointer' }} />
                         )}
                     </ListItem>
                     <Divider />
                     <ListItem>
                         {open ? (
                             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px' }}>
-                                <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
+                                <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>
                                     <LogoutIcon />
                                 </Link>
-                                <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
+                                <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>
                                     <Typography sx={{ fontSize: '16px' }} onClick={toggleRequest}> Logout</Typography>
                                 </Link>
                             </Box>
                         ) : (
-                            <Link to='/' style={{color: '#000', textDecoration: 'none'}}>
+                            <Link to='/' style={{ color: '#000', textDecoration: 'none' }}>
                                 <LogoutIcon />
                             </Link>
                         )}
                     </ListItem>
-
                 </List>
-
                 <Divider />
             </Drawer>
-            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+            <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: '#F5F5F5', height: '100vh' }}>
                 <DrawerHeader />
-
                 {isClient ? <Client /> : ""}
-
-                {isPayment ? <Payment /> : ""}
-
-                {isRequest ? <Request /> : ""}
+                {isPayment ? <UserAllocation /> : ""}
+                {isRequest ? <ActivityLogs /> : ""}
+                {isDetail ? <BasicTable update={toggleUpdate} /> : ""}
+                {isUpdate ? <UpdateClient /> : ""}
             </Box>
-
         </Box>
     );
 }

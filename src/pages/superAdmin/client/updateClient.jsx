@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import { Paper, Typography } from '@mui/material';
 import { imgData } from '../../../assets';
 
-const Client = () => {
+const UpdateClient = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     };
@@ -13,7 +13,7 @@ const Client = () => {
     return (
         <form onSubmit={handleSubmit}>
             <Paper sx={{ height: '100%', boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', display: 'flex', flexDirection: 'column', maxWidth: '800px', margin: 'auto', padding: '16px', }}>
-                <Typography variant="h4" component="div" gutterBottom> Client Registration </Typography>
+                <Typography variant="h4" component="div" gutterBottom> Client Updation </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'column', maxWidth: '800px', margin: 'auto', }} >
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -44,11 +44,11 @@ const Client = () => {
                             <TextField label="Company License No" variant="outlined" margin="normal" fullWidth size='small' />
                         </Grid>
                     </Grid>
-                    <Button type="submit" variant="contained" color="primary" sx={{ marginTop: '16px', backgroundImage: `url(${imgData.formbg})`, backgroundSize: 'cover', backgroundPosition: 'fixed' }}> Submit </Button>
+                    <Button type="submit" variant="contained" color="primary" sx={{ marginTop: '16px', backgroundImage: `url(${imgData.formbg})`, backgroundSize: 'cover', backgroundPosition: 'fixed' }}> Update </Button>
                 </Box>
             </Paper>
         </form>
     );
 }
 
-export default Client;
+export default UpdateClient;
